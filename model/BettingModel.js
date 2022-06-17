@@ -4,7 +4,7 @@ const bettingSchema = new mongoose.Schema({
   userName : String,
   address : String,
   privateKey : String,
-  Balance : String
+  Balance : Number
 })
 
 const Betting = mongoose.model("Betting", bettingSchema)
