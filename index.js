@@ -22,13 +22,13 @@ if (core.isSDKLoaded()) {
 
 //Making a bet
 
-app.post("/user/bet", (req, res) => {
+app.post("/user/bet", async (req, res) => {
   const address = req.body.address;
   const privateKey = req.body.privateKey;
   const amount = req.body.amount;
 
   try {
-    const account = new Account(address, privateKey);
+    const account = await new Account(address, privateKey);
   } catch (err) {
     console.log(err);
   }
@@ -42,7 +42,7 @@ app.post("/user/bet", (req, res) => {
       receiver: "Master Address",
       amount: amount,
     };
-    sendTransaction(transactionType, transactionPayload);
+    await sendTransaction(transactionType, transactionPayload);
   } catch (err) {
     console.log(err);
   }
@@ -51,13 +51,13 @@ app.post("/user/bet", (req, res) => {
 });
 
 // Tournament pool
-app.post("/user/tournament", (req, res) => {
+app.post("/user/tournament", async (req, res) => {
   const address = req.body.address;
   const privateKey = req.body.privateKey;
   const amount = req.body.amount;
 
   try {
-    const account = new Account(address, privateKey);
+    const account = await new Account(address, privateKey);
   } catch (err) {
     console.log(err);
   }
@@ -71,7 +71,7 @@ app.post("/user/tournament", (req, res) => {
       receiver: "Tournament pool Address",
       amount: amount,
     };
-    sendTransaction(transactionType, transactionPayload);
+    await sendTransaction(transactionType, transactionPayload);
   } catch (err) {
     console.log(err);
   }
@@ -80,7 +80,7 @@ app.post("/user/tournament", (req, res) => {
 });
 
 //crediting winner
-app.post("/creditWinner", (req, res) => {
+app.post("/creditWinner", async(req, res) => {
   const address = req.body.address;
 
   const transactionType = TransactionType.Transfer;
@@ -92,7 +92,7 @@ app.post("/creditWinner", (req, res) => {
       receiver: "Winner's Address",
       amount: amount,
     };
-    sendTransaction(transactionType, transactionPayload);
+    await sendTransaction(transactionType, transactionPayload);
   } catch (err) {
     console.log(err);
   }
@@ -105,9 +105,9 @@ app.post("/user/balance", (req, res) => {
   const address = req.body.address;
   const privateKey = req.body.privateKey;
 
-  const account = new Account(address, privateKey);
+  const account = await new Account(address, privateKey);
 
-  res.send(account.getBalance());
+  res.send(await account.getBalance());
 });
 
 app.listen(port, () => console.log("Listening now"));
