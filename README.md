@@ -14,7 +14,8 @@
 
 ### POST: `/users/bet`
 
-Requires the users Address, private amount and how much they want to bet in the request body
+Requires the users Address, private amount and how much they want to bet in the request body.
+This maps the user,s profile to their wallet, and this uses the `Transfer` call from the SDK to initiate transactions between wallets.
 
 ```
 app.post("/user/bet", async (req, res) => {
@@ -54,7 +55,7 @@ app.post("/user/bet", async (req, res) => {
 
 ### POST: `/user/tournament`
 
-Requires the users Address, private amount and how much they want to bet in the request body
+Requires the users Address, private amount and how much they want to bet in the request body. This also makes use of the `Transfer` to make transactions.
 
 ```
 app.post("/user/tournament", async (req, res) => {
@@ -94,7 +95,7 @@ app.post("/user/tournament", async (req, res) => {
 
 ### POST: `/creditWinner`
 
-Requires the winner's Address in request body
+Requires the winner's Address in request body. The developer is the ADMIN who credits the winner of the bet.
 
 ```
 app.post("/creditWinner", async(req, res) => {
@@ -126,7 +127,8 @@ app.post("/creditWinner", async(req, res) => {
 
 ### Post: `/xpToToken`
 
-Requires the user's points to be converted and the address of the users
+Requires the user's points to be converted and the address of the users.
+Users can burn experience points(XP) to mint tokens which would be sent to their address by the developer.
 
 ```
 //function that converts XP to tokens
