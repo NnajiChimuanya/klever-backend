@@ -100,6 +100,41 @@ app.post("/creditWinner", async(req, res) => {
   res.status(200).send(`Successfully sent ${amount} to winner ${receiver}`);
 });
 
+
+//function that converts XP to tokens
+const xpToToken = (point) => {
+  let token;
+
+  token = point / 1000
+
+  return token;
+}
+
+//Converting XP to token
+app.post("/xpToToken", async(req, res) => {
+  const address = req.body.address;
+  const points = req.body.points
+  
+
+  let token = xpToToken(points)
+
+  const transactionType = TransactionType.Transfer;
+
+  try {
+    const transactionPayload = {
+      sender: "Master Address",
+      privateKey: atob(account.privateKey),
+      receiver: "Winner's Address",
+      amount: token,
+    };
+    await sendTransaction(transactionType, transactionPayload);
+  } catch (err) {
+    console.log(err);
+  }
+
+  res.status(200).send(`Successfully sent ${amount} to ${receiver}`);
+});
+
 //Checking balance
 app.post("/user/balance", (req, res) => {
   const address = req.body.address;
